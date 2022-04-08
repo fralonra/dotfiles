@@ -11,7 +11,10 @@
 
 # Variables
 set $mod Mod4
+set $exec exec --no-startup-id
 set $terminal yakuake
+set $file-browser nemo
+set $web-browser google-chrome-stable
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -32,7 +35,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec $terminal
 
 # kill focused window
@@ -43,7 +46,7 @@ bindsym $mod+Shift+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d $exec i3-dmenu-desktop
 
 # change focus
 #bindsym $mod+j focus left
@@ -156,6 +159,8 @@ bindsym $mod+r mode "resize"
 
 # Launching applications
 bindsym $mod+l exec i3lock -ui /home/zoron/.config/i3/i3lock.png
+bindsym $mod+shift+f $exec $file-browser
+bindsym $mod+shift+b $exec $web-browser
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -180,9 +185,9 @@ bar {
 bindsym $mod+n bar mode toggle
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume $exec pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -198,15 +203,16 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Autostart
-exec --no-startup-id compton
-exec --no-startup-id $terminal
-exec --no-startup-id fcitx
-exec --no startup-id clipit
-exec --no-startup-id nm-applet
-exec --no-startup-id pnmixer
-exec --no-startup-id feh --bg-scale /usr/share/backgrounds/archlinux/archlinux-aqua-vines.jpg &
-exec --no-startup-id electron-ssr
-exec --no-startup-id ~/.config/i3/startup_ws2.sh
+$exec compton
+$exec $terminal
+$exec fcitx
+$exec blueman-manager
+$exec --no startup-id clipit
+$exec nm-applet
+$exec pnmixer
+$exec feh --randomize --bg-scale ~/Pictures/wallpaper/* &
+$exec sudo v2raya
+$exec ~/.config/i3/startup_ws2.sh
 
 # Assign audacious to workspace 2 (The name of the application must capitalize.)
 assign [class="Audacious"] 8
