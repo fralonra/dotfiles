@@ -8,9 +8,4 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-if ["$TERM" = "linux"]; then
-	export LANG=C
-	export VISUAL="pluma"
-fi
-
-ulimit -c unlimited
+. "$HOME/.cargo/env"
